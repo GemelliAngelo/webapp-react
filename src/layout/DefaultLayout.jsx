@@ -8,7 +8,9 @@ export default function DefaultLayout() {
       <main>
         <Outlet />
       </main>
-      <footer className="text-bg-dark">Footer</footer>
+      <footer className="text-bg-dark">
+        <div className="container">Footer</div>
+      </footer>
     </>
   );
 }
