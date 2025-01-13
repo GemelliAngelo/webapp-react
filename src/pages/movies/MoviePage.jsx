@@ -14,20 +14,48 @@ export default function MoviePage() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container py-5">
       <h1>Movie Details</h1>
 
       {movie && (
-        <div>
-          <h2>{movie.title}</h2>
-          {movie.reviews.map((review) => (
-            <ul key={review.id}>
-              <li>{review.name}</li>
-              <li>{review.vote}</li>
-              <li>{review.text}</li>
-            </ul>
-          ))}
-        </div>
+        <>
+          <div className="card mb-3">
+            <div className="row g-0">
+              <div className="col-md-4">
+                <img className="img-fluid" src={movie.image} />
+              </div>
+              <div className="col-md-8 bg-dark-subtle">
+                <div className="card-body">
+                  <h2 className="card-title">{movie.title}</h2>
+                  <p className="card-text">
+                    <small className="text-body-secondary">
+                      {movie.director}
+                    </small>
+                  </p>
+                  <p className="card-text">{movie.abstract}</p>
+                  <p className="card-text">
+                    <small className="text-body-secondary">{movie.genre}</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h2>Reviews</h2>
+          <div className="d-flex gap-3">
+            {movie.reviews.map((review) => (
+              <div key={review.id} className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{review.name}</h5>
+                  <h6 className="card-subtitle mb-2 text-body-secondary">
+                    {review.vote}
+                  </h6>
+                  <p className="card-text">{review.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

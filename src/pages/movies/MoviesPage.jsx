@@ -12,20 +12,31 @@ export default function MoviesPage() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container py-5">
       <h1>Movies List</h1>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link
-              className="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-              to={"/movies/" + movie.id}
-            >
-              <h2>{movie.title}</h2>
+      {movies.map((movie) => (
+        <div key={movie.id} className="card my-3">
+          <div className="card-header">{movie.created_at}</div>
+          <div className="card-body bg-dark-subtle">
+            <h5 className="card-title">{movie.title}</h5>
+            <p className="card-text">{movie.abstract}</p>
+            <Link to={"/movies/" + movie.id} className="btn btn-primary">
+              Dettagli
             </Link>
-          </li>
-        ))}
-      </ul>
+          </div>
+          <div className="card-footer text-body-secondary">
+            {movie.updated_at}
+          </div>
+        </div>
+        // <li key={movie.id}>
+        //   <Link
+        //     className="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+        //     to=
+        //   >
+        //     <h2></h2>
+        //   </Link>
+        // </li>
+      ))}
     </div>
   );
 }
