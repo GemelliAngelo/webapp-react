@@ -30,11 +30,6 @@ export default function Header() {
                   Movies
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" href="#">
-                  Detail
-                </NavLink>
-              </li>
             </ul>
           </div>
         </div>
