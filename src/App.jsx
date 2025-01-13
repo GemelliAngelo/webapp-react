@@ -1,14 +1,13 @@
-import { useState } from "react";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import * as bootstrap from "bootstrap";
-import "./assets/css/index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/Homepage";
 
 function App() {
   return (
-    <>
-      <h1>React Cinema</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<HomePage />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
