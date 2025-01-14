@@ -13,14 +13,14 @@ export default function MoviesPage() {
 
   return (
     <div className="container py-5">
-      <h1>Movies List</h1>
+      <h1 className="text-center text-danger pb-4">MOVIES LIST</h1>
       {movies.map((movie) => (
         <div key={movie.id} className="card my-3">
           <div className="card-header">{movie.created_at}</div>
-          <div className="card-body bg-dark-subtle">
+          <div className="card-body text-bg-dark">
             <h5 className="card-title">{movie.title}</h5>
             <p className="card-text">{movie.abstract}</p>
-            <Link to={"/movies/" + movie.id} className="btn btn-primary">
+            <Link to={"/movies/" + movie.id} className="btn btn-outline-light">
               Dettagli
             </Link>
           </div>
