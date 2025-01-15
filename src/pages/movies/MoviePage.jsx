@@ -18,6 +18,7 @@ export default function MoviePage() {
     for (let i = 0; i < 5; i++) {
       const star = (
         <i
+          key={i}
           className={`fa-${
             i < rating ? `solid` : `regular`
           } fa-star text-warning`}
@@ -28,29 +29,51 @@ export default function MoviePage() {
     return stars;
   };
 
+  const defaultFormData = {
+    name: "",
+    text: "",
+    vote: "",
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
+
+  const handleFormChange = (e) => {
+    setFormData((formData) => ({
+      ...formData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const url = import.meta.env.VITE_BACKEND_URL;
+    fetch();
+  };
+
   return (
     <div className="container py-5">
-      <h1 className="text-center text-danger pb-4">MOVIE DETAILS</h1>
-
       {movie && (
         <>
           <section className="mb-5">
-            <div className="card mb-3">
+            <div className="card mb-3 text-bg-dark">
               <div className="row g-0">
                 <div className="col-md-4">
                   <img className="img-fluid" src={movie.image} />
                 </div>
-                <div className="col-md-8 text-bg-dark">
+                <div className="col-md-8 ">
                   <div className="card-body">
-                    <h5 className="text-bg-secondary">Title:</h5>
+                    <h5>Title:</h5>
                     <h2 className="h1 card-title pb-3 ">{movie.title}</h2>
-                    <h5 className="text-bg-secondary">Director:</h5>
+                    <hr />
+                    <h5>Director:</h5>
                     <p className="card-text fs-4 pb-3">
                       <small>{movie.director}</small>
                     </p>
-                    <h5 className="text-bg-secondary">Abstract:</h5>
+                    <hr />
+                    <h5>Abstract:</h5>
                     <p className="card-text fs-2 pb-3 ">{movie.abstract}</p>
-                    <h5 className="text-bg-secondary">Genre:</h5>
+                    <hr />
+                    <h5>Genre:</h5>
                     <p className="card-text fs-4 pb-3">
                       <small>{movie.genre}</small>
                     </p>
@@ -59,8 +82,45 @@ export default function MoviePage() {
               </div>
             </div>
           </section>
+          <hr />
           <section className="mt-5">
-            <h2 className="py-3">Reviews</h2>
+            <h2 className="pb-3">Reviews</h2>
+            <form onSubmit={handleSubmit} className="pb-5">
+              <div className="row row-cols-4 g-3">
+                <div className="col">
+                  <input
+                    onChange={handleFormChange}
+                    type="text"
+                    className="form-control"
+                    aria-label="First name"
+                    value={formData.name}
+                  />
+                </div>
+                <div className="col">
+                  <input
+                    onChange={handleFormChange}
+                    type="text"
+                    className="form-control"
+                    aria-label="Last name"
+                    value={formData.vote}
+                  />
+                </div>
+                <div className="col">
+                  <input
+                    onChange={handleFormChange}
+                    type="text"
+                    className="form-control"
+                    aria-label="Last name"
+                    value={formData.text}
+                  />
+                </div>
+                <div className="col ">
+                  <button className="btn btn-dark" type="submit">
+                    <i className="fa-solid fa-share"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
             <div className="d-flex gap-3">
               {movie.reviews.map((review) => (
                 <div key={review.id} className="card text-bg-dark">

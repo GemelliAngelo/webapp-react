@@ -13,30 +13,20 @@ export default function MoviesPage() {
 
   return (
     <div className="container py-5">
-      <h1 className="text-center text-danger pb-4">MOVIES LIST</h1>
-      {movies.map((movie) => (
-        <div key={movie.id} className="card my-3">
-          <div className="card-header">{movie.created_at}</div>
-          <div className="card-body text-bg-dark">
-            <h5 className="card-title">{movie.title}</h5>
-            <p className="card-text">{movie.abstract}</p>
-            <Link to={"/movies/" + movie.id} className="btn btn-outline-light">
-              Dettagli
+      <div className="row">
+        {movies.map((movie) => (
+          <div className="col-4">
+            <Link to={"/movies/" + movie.id}>
+              <div class="card text-bg-dark">
+                <img src={movie.image} class="card-img" />
+                <div class="card-img-overlay">
+                  <h5 class="card-title">{movie.title}</h5>
+                </div>
+              </div>
             </Link>
           </div>
-          <div className="card-footer text-body-secondary">
-            {movie.updated_at}
-          </div>
-        </div>
-        // <li key={movie.id}>
-        //   <Link
-        //     className="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-        //     to=
-        //   >
-        //     <h2></h2>
-        //   </Link>
-        // </li>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
