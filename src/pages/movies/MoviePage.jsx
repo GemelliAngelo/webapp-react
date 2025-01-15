@@ -38,16 +38,32 @@ export default function MoviePage() {
   const [formData, setFormData] = useState(defaultFormData);
 
   const handleFormChange = (e) => {
-    setFormData((formData) => ({
+    setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    }));
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = import.meta.env.VITE_BACKEND_URL;
-    fetch();
+
+    const url = import.meta.env.VITE_BACKEND_URL + "movies/" + movieId;
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormData(defaultFormData);
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            setMovie(data);
+          });
+      });
   };
 
   return (
@@ -89,6 +105,7 @@ export default function MoviePage() {
               <div className="row row-cols-4 g-3">
                 <div className="col">
                   <input
+                    name="name"
                     onChange={handleFormChange}
                     type="text"
                     className="form-control"
@@ -98,6 +115,7 @@ export default function MoviePage() {
                 </div>
                 <div className="col">
                   <input
+                    name="vote"
                     onChange={handleFormChange}
                     type="text"
                     className="form-control"
@@ -107,6 +125,7 @@ export default function MoviePage() {
                 </div>
                 <div className="col">
                   <input
+                    name="text"
                     onChange={handleFormChange}
                     type="text"
                     className="form-control"
@@ -121,15 +140,17 @@ export default function MoviePage() {
                 </div>
               </div>
             </form>
-            <div className="d-flex gap-3">
+            <div className="row g-3">
               {movie.reviews.map((review) => (
-                <div key={review.id} className="card text-bg-dark">
-                  <div className="card-body">
-                    <h5 className="card-title">{review.name}</h5>
+                <div key={review.id} className="col-4">
+                  <div className="card text-bg-dark">
+                    <div className="card-body">
+                      <h5 className="card-title">{review.name}</h5>
 
-                    {generateStars(review.vote).map((star) => star)}
+                      {generateStars(review.vote).map((star) => star)}
 
-                    <p className="card-text">{review.text}</p>
+                      <p className="card-text">{review.text}</p>
+                    </div>
                   </div>
                 </div>
               ))}
